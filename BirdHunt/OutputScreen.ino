@@ -106,8 +106,6 @@ void outputScreen_menu(){
   
   Image Title = Image(Title_Data);
   Image DuckWing = Image(Duck002Wing_Data);
-  //Image DuckNoWing = Image(Duck002NoWing_Data);
-  Image Cursor = Image(Cursor_Data);
   Image Ground = Image(Background001_Data);
   Image Tree = Image(Background002_Data);
   Image Bush = Image(Background003_Data);
@@ -119,15 +117,6 @@ void outputScreen_menu(){
   
   if(game.menuOption == 1){
     gb.display.setColor(WHITE);
-    /*
-    if(game.globalTimer<3){
-      gb.display.drawImage(8,18, DuckNoWing,-16,10);
-      gb.display.drawImage(57,18, DuckNoWing, 16,10);
-    }else{
-      gb.display.drawImage(8,18, DuckWing,-16,10);
-      gb.display.drawImage(57,18, DuckWing, 16,10);
-    }
-    */
   }else{ gb.display.setColor(DARKBLUE);  }
   gb.display.setCursor(32, 21);
   gb.display.println("Play!");
@@ -135,60 +124,12 @@ void outputScreen_menu(){
 
   if(game.menuOption == 2){
     gb.display.setColor(WHITE); 
-    
-    /*if(game.globalTimer<3){
-      gb.display.drawImage(8,25, DuckNoWing,-16,10);
-      gb.display.drawImage(57,25, DuckNoWing, 16,10);
-    }else{
-      gb.display.drawImage(8,25, DuckWing,-16,10);
-      gb.display.drawImage(57,25, DuckWing, 16,10);
-    }*/
   }else{ gb.display.setColor(DARKBLUE);  }
-  if(player.difficulty == 1){
-    gb.display.setCursor(33, 28);
-    gb.display.println("Easy"); 
-    if(game.menuOption == 2){
-      gb.display.drawImage(33-5, 28, Cursor,3,5);
-      gb.display.drawImage(50, 28, Cursor,-3,5);
-    } 
-  }
-  if(player.difficulty == 2){
-    gb.display.setCursor(29, 28);
-    gb.display.println("Normal");
-    if(game.menuOption == 2){
-      gb.display.drawImage(29-5, 28, Cursor,3,5);
-      gb.display.drawImage(54, 28, Cursor,-3,5);
-    } 
-  }
-  if(player.difficulty == 3){
-    gb.display.setCursor(33, 28);
-    gb.display.println("Hard");
-    if(game.menuOption == 2){
-      gb.display.drawImage(33-5, 28, Cursor,3,5);
-      gb.display.drawImage(50, 28, Cursor,-3,5);
-    } 
-  }
-  if(player.difficulty == 4){
-    gb.display.setCursor(29, 28);
-    gb.display.println("Insane");
-    if(game.menuOption == 2){
-      gb.display.drawImage(29-5, 28, Cursor,3,5);
-      gb.display.drawImage(54, 28, Cursor,-3,5);
-    } 
-  }  
-
+    gb.display.setCursor(25, 28);
+    gb.display.println("Settings"); 
 
   if(game.menuOption == 3){
     gb.display.setColor(WHITE); 
-    /*
-    if(game.globalTimer<3){
-      gb.display.drawImage(8,36, DuckNoWing,-16,10);
-      gb.display.drawImage(57,36, DuckNoWing, 16,10);
-    }else{
-      gb.display.drawImage(8,36, DuckWing,-16,10);
-      gb.display.drawImage(57,36, DuckWing, 16,10);
-    }
-    */
   } else{ gb.display.setColor(DARKBLUE);  }
   gb.display.setCursor(25, 39);
   gb.display.println("Controls");
@@ -196,21 +137,102 @@ void outputScreen_menu(){
 
   if(game.menuOption == 4){
     gb.display.setColor(WHITE); 
-    /*
-    if(game.globalTimer<3){
-      gb.display.drawImage(8,42, DuckNoWing,-16,10);
-      gb.display.drawImage(57,42, DuckNoWing, 16,10);
-    }else{
-      gb.display.drawImage(8,42, DuckWing,-16,10);
-      gb.display.drawImage(57,42, DuckWing, 16,10);
-    }*/
   } else{  gb.display.setColor(DARKBLUE);  }
   gb.display.setCursor(27, 45);
   gb.display.println("Credits");
-
 }
 
+//######################################
+//############# SETTINGS ###############
+//######################################
+void outputScreen_settings(){
+  Image Cursor = Image(Cursor_Data);
+  int n = 0;
+  gb.display.setColor(BLUE);
+  gb.display.setCursor(1, 1);
+  gb.display.println("Settings");
 
+  if(game.menuOption == 1){
+    gb.display.setColor(WHITE);
+    gb.display.drawImage(4, 23, Cursor,3,5);
+    gb.display.drawImage(73, 23, Cursor,-3,5);
+  }else{
+    gb.display.setColor(GRAY);
+  } 
+  gb.display.setCursor(3, 15);
+  gb.display.println("Difficulty:");
+  gb.display.setCursor(48, 15);
+  if(player.difficulty == 1){gb.display.print("Easy");  n=10;}
+  if(player.difficulty == 2){gb.display.print("Normal");n=29;}
+  if(player.difficulty == 3){gb.display.print("Hard");  n=48;}
+  if(player.difficulty == 4){gb.display.print("Insane");n=67;}
+
+  gb.display.setColor(WHITE);
+  gb.display.drawFastHLine(10,25,60);
+  gb.display.setColor(RED);
+  gb.display.fillRect(n,23,3,5);
+
+
+  if(game.menuOption == 2){
+    gb.display.setColor(WHITE);
+    gb.display.drawImage(4, 43, Cursor,3,5);
+    gb.display.drawImage(73, 43, Cursor,-3,5);
+  }else{
+    gb.display.setColor(GRAY);
+  }
+  gb.display.setCursor(3, 35);
+  gb.display.println("Sensitivity : ");
+
+  gb.display.setColor(WHITE);
+  gb.display.drawFastHLine(10,45,60);
+  gb.display.setColor(RED);
+  if(player.cursorSlowSensi==1){n=10;}
+  if(player.cursorSlowSensi==2){n=38;}
+  if(player.cursorSlowSensi==3){n=67;}
+  gb.display.fillRect(n,43,3,5);
+
+  if(game.menuOption == 3){
+    gb.display.setColor(WHITE);
+  }else{
+    gb.display.setColor(GRAY);
+  }
+  gb.display.setCursor(3, 55);
+  gb.display.println("Back");
+}
+
+//######################################
+//############# PAUSE ##################
+//######################################
+void outputScreen_pause(){
+  Image Cursor = Image(Cursor_Data);
+  gb.display.setColor(BLUE);
+  gb.display.setCursor(1, 1);
+  gb.display.println("Pause");
+
+  if(game.menuOption == 1){
+    gb.display.setColor(WHITE);
+    gb.display.drawImage(2, 20, Cursor,-3,5);
+  }else{
+    gb.display.setColor(GRAY);
+  } 
+  gb.display.setCursor(7, 20);
+  gb.display.println("Continue");
+
+  if(game.menuOption == 2){
+    gb.display.setColor(WHITE);
+    gb.display.drawImage(2, 30, Cursor,-3,5);
+  }else{
+    gb.display.setColor(GRAY);
+  }
+  gb.display.setCursor(7, 30);
+  gb.display.println("Give Up");
+
+  gb.display.setColor(GRAY);
+  gb.display.setCursor(7, 50);
+  gb.display.println("Score:");
+  gb.display.setCursor(40, 50);
+  gb.display.println(player.score);
+}
 
 
 //######################################

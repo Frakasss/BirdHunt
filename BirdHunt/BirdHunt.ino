@@ -8,6 +8,8 @@
 #define ANIMSUCCESS 6
 #define ANIMFAIL 7
 #define GAMEOVER 8
+#define SETTINGS 9
+#define PAUSE 10
 
 #define CONTROLS 20
 #define CREDITS 21
@@ -41,6 +43,8 @@ typedef struct{
   int animTimer;
   int xCursor;
   int yCursor;
+  int cursorSlowSensi;
+  int cursorFastSensi;
 }PlayerParam;
 PlayerParam player;
 
@@ -84,9 +88,9 @@ typedef struct {
 SoundInfo sounds;
 
 
-/*
-int strategies[5][10];
-*/
+
+int previousStatus = GAMEMAKERS;
+
 
 
 //###########################
@@ -134,9 +138,24 @@ void loop(){
             break;
 
          //####################################  
+         case SETTINGS:
+            outputScreen_clear();
+            outputScreen_settings();
+            button_check(SETTINGS);
+            break;
+
+         //####################################  
+         case PAUSE:
+            outputScreen_clear();
+            outputScreen_pause();
+            button_check(PAUSE);
+            break;
+
+         //####################################  
          case ANIM:
             outputScreen_clear();
             outputScreen_anim();
+            button_check(ANIM);
             break;
 
          //####################################  
@@ -171,6 +190,7 @@ void loop(){
             outputScreen_hub();
             ennemy_moveDeadBird();
             if(game.globalTimer>=30){game_finalCheck();}
+            button_check(ANIMSUCCESS);
             break;
 
          //####################################  
@@ -185,6 +205,7 @@ void loop(){
             outputScreen_hub();
             ennemy_moveFlyAwayBird();
             if(game.globalTimer>=30){game_finalCheck();}
+            button_check(ANIMFAIL);
             break;
 
          //#################################### 

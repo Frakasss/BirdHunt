@@ -17,6 +17,8 @@ void game_initPlayer(){
   game_initLevelResults();
   player.animTimer=0;
   game_initLevelCursor();
+  player.cursorSlowSensi=1;
+  player.cursorFastSensi=3;
 }
 
 void game_initLevelResults(){
@@ -25,6 +27,19 @@ void game_initLevelResults(){
 void game_initLevelCursor(){
   player.xCursor=40;
   player.yCursor=30;
+}
+
+void game_reset(){
+  player.currentLevel=1;
+  player.currentShot=0;
+  player.usedBullet=0;
+  if(player.difficulty==3){player.usedBullet=1;}
+  if(player.difficulty==4){player.usedBullet=2;}
+  player.tmpScore=0;
+  player.score=0;
+  game_initLevelResults();
+  player.animTimer=0;
+  game_initLevelCursor();  
 }
 
 void game_initAnims(){
@@ -191,7 +206,14 @@ void game_manageGlobalCounter(){
         }           
         break;
 
-      
+      //####################################  
+     case SETTINGS:
+        break;
+
+      //####################################  
+     case PAUSE:
+        break;
+        
      //####################################  
      case CONTROLS:
         break;
@@ -271,6 +293,9 @@ void game_finalCheck(){
     or (player.difficulty==3 and countSuccess>=8)
     or (player.difficulty==4 and countSuccess>=10) ){
       player.currentShot = 0;
+      player.usedBullet=0;
+      if(player.difficulty==3){player.usedBullet=1;}
+      if(player.difficulty==4){player.usedBullet=2;}
       player.currentLevel = player.currentLevel + 1;
       game_initLevelResults();
       game_initLevelCursor();
